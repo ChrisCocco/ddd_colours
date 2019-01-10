@@ -1,76 +1,158 @@
 # -*- coding: utf-8 -*-
-"""TODO: docstring
+"""Colors_extraction : this module attributes to each element of an ndarray 
+(RGB image) the most similar color from a palette of predefined colors: red, 
+orange, yellow, green, cyan, blue, purple, pink, achromatic (gray and black), 
+and white.
 """
 
 from pathlib import Path
 import time
 import json
 
-from scipy.misc import imread
 from scipy.cluster.vq import vq
 from skimage import filters
 import numpy as np
-import matplotlib
 
-# TODO...
-__author__ = "Rob Knight, Gavin Huttley, and Peter Maxwell"
-__copyright__ = "Copyright 2007, The Cogent Project"
-__credits__ = ["Rob Knight", "Peter Maxwell", "Gavin Huttley",
-                    "Matthew Wakefield"]
-__license__ = "GPL"
-__version__ = "1.0.1"
-__maintainer__ = "Rob Knight"
-__email__ = "rob@spot.colorado.edu"
-__status__ = "Production"
-start_time = time.clock()
+__author__ = "Christelle Cocco, Aris Xanthos, and Raphael Cere"
+__copyright__ = "Copyright 2019, University of Lausanne, Switzerland"
+__credits__ = ["Christelle Cocco", "Aris Xanthos", "Raphael Cere"]
+__license__ = "GNU GPLv3"
+__version__ = "0.1a0"
+__maintainer__ = "Christelle Cocco"
+__email__ = "Christelle.Cocco@unil.ch"
+__status__ = "Development"
 
-# Parameters
-image_folder = Path("")
-image_name = Path("test.jpg")
-save_path = Path("color_extract")
-color_config = Path("color_definitions.json")
-median_filter = True
+# Parameters...
+COLOR_DEF_PATH = Path("color_definitions.json")
 
-try:
-    with open(color_config) as json_file:  
-        color_definitions = json.load(json_file)
-except IOError:
-    print("Couldn't read file %s" % color_config)
+def load_color_definitions(path=COLOR_DEF_PATH):
+    """Given a path to a JSON file, load color definitions from this file.
 
-color_names = list()
-color_vectors = list()
-for color_name, color_vector_list in color_definitions.items():
-    for color_vector in color_vector_list:
-        color_names.append(color_name)
-        color_vectors.append(color_vector)
-code_book = np.array(color_vectors)
+    Args:
+        path (string): the path to the color definition file.
 
-image_path = image_folder / image_name
-img = imread(image_path)
-w, h, d = img.shape
-assert d == 3
+    Returns:
+        list: list of color names.
+        list: list of RGB color vectors (centroids).
 
-image_array = np.reshape(img, (w * h, d))
-labels, _ = vq(image_array, code_book)
-img_labels = np.empty((w * h), dtype=object)
-for idx, label in np.ndenumerate(labels):
-    img_labels[idx] = color_names[label]
-img_labels = np.reshape(img_labels, (w, h))
+    """
+    # Open and read color definition file...
+    try:
+        with open(color_config) as json_file:  
+            color_definitions = json.load(json_file)
+    except IOError:
+        raise IOError("Couldn't read color definition file %s" % color_config)
 
-bool_matrices = dict()
-for color_name in set(color_names):
-    bool_matrices[color_name] = img_labels == color_name
-    if median_filter:
-        bool_matrix = filters.median(
-            bool_matrices[color_name].astype(dtype = 'uint8'),
-            selem=np.ones((3,3)),
-        ).astype(dtype = 'bool')
+    # Store list of color names and color vectors (centroids)...
+    color_names = list()
+    color_vectors = list()
+    for color_name, color_vector_list in color_definitions.items():
+        for color_vector in color_vector_list:
+            color_names.append(color_name)
+            color_vectors.append(color_vector)
+    code_book = np.array(color_vectors)
+    
+    return code_book, color_names
+
+# Load default color definitions.
+CODE_BOOK, COLOR_NAMES = load_color_def_file()
+
+def get_bool_arrays(image, median_filter=False, color_def_path=None)
+    """Given an RGB image (array), return a dictionary where each key is a basic 
+    color name and each value is a boolean array with the same dimensions as the 
+    image, indicating whether the color in question has been detected at each 
+    position of the image.
+
+    Args:
+        image (ndarray): the input RGB image as a numpy array.
+        median_filter (bool): whether a 3x3 median filter should be applied 
+        color_def_path (string): path to a custom JSON color definition file
+
+    Returns:
+        dict: dictionary with color_names (strings) as keys and boolean arrays
+        as values.
+
+    """
+    # Load custom color definitions if required...
+    if color_def_path:
+        code_book, color_names = load_color_def_file()
     else:
-        bool_matrix = bool_matrices[color_name]
-    viz = img.copy()
-    viz[np.invert(bool_matrix)] = 0
-    output_path = save_path / Path('%s.png' % color_name)
-    matplotlib.image.imsave(output_path, viz)
-    print(color_name, np.sum(bool_matrix))
+        code_book, color_names = CODE_BOOK, COLOR_NAMES
+    
+    # Get color label array...
+    w, h, d = image.shape
+    assert d == 3, "Image doesn't have 3 dimensions, please make sure it is RGB"
+    image_array = np.reshape(image, (w * h, d))
+    labels, _ = vq(image_array, code_book)
+    img_labels = np.empty((w * h), dtype=object)
+    for idx, label in np.ndenumerate(labels):
+        img_labels[idx] = color_names[label]
+    img_labels = np.reshape(img_labels, (w, h))
 
-print("--- %s seconds ---" % (time.clock() - start_time))
+    # Create color bool arrays and store in dictionary...
+    bool_arrays = dict()
+    for color_name in set(color_names):
+        bool_array = img_labels == color_name
+        if median_filter:
+            bool_arrays[color_name] = filters.median(
+                bool_array.astype(dtype = 'uint8'),
+                selem=np.ones((3,3)),
+            ).astype(dtype = 'bool')
+        else:
+            bool_arrays[color_name] = bool_array
+
+    return bool_arrays
+
+def get_rgb_arrays(image, median_filter=False, color_def_path=None)
+    """Given an RGB image (array), return a dictionary where each key is a basic 
+    color name and each value is a RGB array with the same dimensions as the 
+    image. Positions where the color in question has been detected contain the
+    original RGB color found in the input image; other positions have the value
+    0 (black), or 1 (white) in the case of the "achro(matic)" color.
+
+    Args:
+        image (ndarray): the input RGB image as a numpy array.
+        median_filter (bool): whether a 3x3 median filter should be applied 
+        color_def_path (string): path to a custom JSON color definition file
+
+    Returns:
+        dict: dictionary with color_names (strings) as keys and RGB arrays
+        as values.
+
+    """
+    # Get bool arrays...
+    bool_arrays = get_bool_arrays(image, median_filter, color_def_path)
+    
+    # Convert bool to rgb...
+    rgb_arrays = dict()
+    for color_name in bool_arrays:
+        rgb_arrays[color_name] = img.copy()
+        bg_color = 255 if color_name == "achro" else 0
+        rgb_arrays[color_name][np.invert(bool_arrays[color_name])] = bg_color
+
+    return rgb_arrays
+        
+def get_counts(image, color_def_path=None)
+    """Given an RGB image (array), return a dictionary where each key is a basic 
+    color name and each value is the count of the number of pixels with this
+    color in the image.
+
+    Args:
+        image (ndarray): the input RGB image as a numpy array.
+        color_def_path (string): path to a custom JSON color definition file
+
+    Returns:
+        dict: dictionary with color_names (strings) as keys and integer values.
+
+    """
+    # Get bool arrays...
+    bool_arrays = get_bool_arrays(image, median_filter=False, color_def_path)
+
+    # Count pixels in bool arrays...
+    counts = dict()
+    for color_name in bool_arrays:
+        counts[color_name] = np.sum(bool_arrays[color_name])
+
+    return counts
+    
+
