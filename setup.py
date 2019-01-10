@@ -6,10 +6,10 @@ def readme():
         
 setup(
     name="color_extraction",
-    version="0.1",
+    version="0.1a0",
     description="A python package for decomposing an image into basic colours",
     long_description=readme(),
-    url="http://github.com/***",
+    url="https://github.com/ChrisCocco/ddd_colours",
     author="Christelle Cocco, Raphael Cere, Aris Xanthos",
     author_email="christelle.cocco@unil.ch",
     license="MIT",
