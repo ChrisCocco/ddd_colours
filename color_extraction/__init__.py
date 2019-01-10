@@ -6,6 +6,7 @@ and white.
 """
 
 from pathlib import Path
+import os
 import time
 import json
 
@@ -23,9 +24,16 @@ __email__ = "Christelle.Cocco@unil.ch"
 __status__ = "Development"
 
 # Parameters...
-COLOR_DEF_PATH = Path("color_definitions.json")
 
-def load_color_definitions(path=COLOR_DEF_PATH):
+
+BASE_PATH  = os.path.dirname(os.path.abspath(__file__))
+def get_data(path):
+    return BASE_PATH+'/color_definitions.json'
+
+
+#COLOR_DEF_PATH = Path("color_extraction/color_definitions.json")
+
+def load_color_definitions(path=BASE_PATH):
     """Given a path to a JSON file, load color definitions from this file.
 
     Args:
@@ -37,11 +45,12 @@ def load_color_definitions(path=COLOR_DEF_PATH):
 
     """
     # Open and read color definition file...
+    COLOR_DEF_PATH=get_data(BASE_PATH)
     try:
-        with open(color_config) as json_file:  
+        with open(COLOR_DEF_PATH) as json_file:  
             color_definitions = json.load(json_file)
     except IOError:
-        raise IOError("Couldn't read color definition file %s" % color_config)
+        raise IOError("Couldn't read color definition file %s" % COLOR_DEF_PATH)
 
     # Store list of color names and color vectors (centroids)...
     color_names = list()
@@ -55,9 +64,9 @@ def load_color_definitions(path=COLOR_DEF_PATH):
     return code_book, color_names
 
 # Load default color definitions.
-CODE_BOOK, COLOR_NAMES = load_color_def_file()
+CODE_BOOK, COLOR_NAMES = load_color_definitions()
 
-def get_bool_arrays(image, median_filter=False, color_def_path=None)
+def get_bool_arrays(image, median_filter=False, color_def_path=None):
     """Given an RGB image (array), return a dictionary where each key is a basic 
     color name and each value is a boolean array with the same dimensions as the 
     image, indicating whether the color in question has been detected at each 
@@ -75,7 +84,7 @@ def get_bool_arrays(image, median_filter=False, color_def_path=None)
     """
     # Load custom color definitions if required...
     if color_def_path:
-        code_book, color_names = load_color_def_file()
+        code_book, color_names = load_color_definitions()
     else:
         code_book, color_names = CODE_BOOK, COLOR_NAMES
     
@@ -103,7 +112,7 @@ def get_bool_arrays(image, median_filter=False, color_def_path=None)
 
     return bool_arrays
 
-def get_rgb_arrays(image, median_filter=False, color_def_path=None)
+def get_rgb_arrays(image, median_filter=False, color_def_path=None):
     """Given an RGB image (array), return a dictionary where each key is a basic 
     color name and each value is a RGB array with the same dimensions as the 
     image. Positions where the color in question has been detected contain the
@@ -126,13 +135,13 @@ def get_rgb_arrays(image, median_filter=False, color_def_path=None)
     # Convert bool to rgb...
     rgb_arrays = dict()
     for color_name in bool_arrays:
-        rgb_arrays[color_name] = img.copy()
+        rgb_arrays[color_name] = image.copy()
         bg_color = 255 if color_name == "achro" else 0
         rgb_arrays[color_name][np.invert(bool_arrays[color_name])] = bg_color
 
     return rgb_arrays
         
-def get_counts(image, color_def_path=None)
+def get_counts(image, color_def_path=None):
     """Given an RGB image (array), return a dictionary where each key is a basic 
     color name and each value is the count of the number of pixels with this
     color in the image.
@@ -146,7 +155,7 @@ def get_counts(image, color_def_path=None)
 
     """
     # Get bool arrays...
-    bool_arrays = get_bool_arrays(image, median_filter=False, color_def_path)
+    bool_arrays = get_bool_arrays(image, median_filter=False, color_def_path=color_def_path)
 
     # Count pixels in bool arrays...
     counts = dict()
@@ -154,5 +163,4 @@ def get_counts(image, color_def_path=None)
         counts[color_name] = np.sum(bool_arrays[color_name])
 
     return counts
-    
 
