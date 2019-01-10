@@ -1,6 +1,6 @@
 from context import color_extraction
 from scipy.misc import imread
-import matplotlib
+import matplotlib.image
 import os
 
 
