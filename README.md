@@ -1,2 +1,2 @@
 # ddd_colours
-Function to identify colours in drawings
+Function to identify colours in drawings.
