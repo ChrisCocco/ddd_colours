@@ -169,7 +169,7 @@ Are:
 
 As for the boolean matrix, it is possible to use a median filter or your own color definition set, with the same parameters.
 
-# Counts
+### Counts
 
 The function `get_counts` returns a dictionary with the number of pixels of each colour.
 
@@ -197,7 +197,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * [Christelle Cocco](https://github.com/ChrisCocco) - initial work
-* [Raphaël Ceré](https://github.com/raphaelcere)
+* [Raphaël Ceré](https://github.com/raphaelcere) - contributor
 * [Aris Xanthos](https://github.com/axanthos) - current version
 
 <!---
