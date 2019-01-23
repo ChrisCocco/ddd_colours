@@ -1,17 +1,15 @@
 # Color-extraction
 
-Color-extraction is an open-source python module which attributes, to each element of an ndarray
-(RGB image) the most similar color from a palette of predefined colors.
+Color-extraction is an open-source python module which attributes to each element of an ndarray (RGB image) the most similar color from a palette of predefined colors.
 
-Three functions are included in this module ([`get_bool_arrays`](#boolean-array), [`get_rgb_arrays`](#rgb-arrays) and [`get_counts`](#counts)) which, respectively, return a
+Three functions are included in this module: [`get_bool_arrays`](#boolean-array), [`get_rgb_arrays`](#rgb-arrays) and [`get_counts`](#counts) which, respectively, return a
 boolean ndarray for each color, a rgb array for each color and the count of pixels for each color.
 
+[comment]: <> (## Getting Started RC: pas nécessaire)
 
-## Getting Started
+[comment]: <> (These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. RC: pas nécessaire)
 
-[comment]: <> (These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.)
-
-### Prerequisites
+## Requirements
 
 * pathlib.Path
 * os
@@ -22,9 +20,7 @@ boolean ndarray for each color, a rgb array for each color and the count of pixe
 * numpy
 
 
-```
-Give examples
-```
+[comment]: <> (```Give examples```)
 
 ### Installing
 
@@ -80,7 +76,11 @@ from scipy.misc import imread
 img = imread(image_path)
 ```
 
+[comment]: <> (RC: Comme il y a la demo dams le package, peut-être qu'il faudrait simplement dire coment lancer cette demo ici et ensuite on peut donner des détails comme ici-desous.)
+
 ### Boolean array
+
+[comment]: <> (RC: Je ne suis convaincu que ce soit nécessaire de donner l'output de cet exemple comme on dit déjà dans l'intro que cette fonction une ndarray bool poour chque couleur. Ce qui retourne ce que l'on appelle un mask par couleur.)
 
 The function `get_bool_arrays` returns a dictionary with a boolean ndarray for
 each color.
@@ -104,6 +104,8 @@ each color.
        [False, False, False, ..., False, False, False]], dtype=bool), ...}
 ```
 
+
+[comment]: <> (RC:  Ci-dessous ce sont les arguments de la fonction, peut-être reduire ceci à un paragraphe?)  
 It is also possible to use a median filter (3 x 3).
 
 ```
