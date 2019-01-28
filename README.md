@@ -77,14 +77,12 @@ for color in dict_rgb_arrays:
 ```
 
 Using the following image as input:
-![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg){width:30%}
-this produces the following results:
 
-* white:
-![White](tests/demo/white.png){:width:"100px"}
 
-* red:
-![Red](tests/demo/red.png){width:30%}
+--- | ---
+Original image | ![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg)
+white | ![White](tests/demo/white.png)
+red | ![Red](tests/demo/red.png)
 
 * orange:
 ![Orange](tests/demo/orange.png){width:30%}
