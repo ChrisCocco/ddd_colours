@@ -81,7 +81,7 @@ Using the following image as input:
 this produces the following results:
 
 * white:
-![White](tests/demo/white.png){width:30%}
+![White](tests/demo/white.png){:width:"100px"}
 
 * red:
 ![Red](tests/demo/red.png){width:30%}
