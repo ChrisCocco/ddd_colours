@@ -79,33 +79,13 @@ for color in dict_rgb_arrays:
 Using the following image as input:
 
 
-Image | Output
---- | ---
-Original image | ![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg)
-white | ![White](tests/demo/white.png)
-red | ![Red](tests/demo/red.png)
-orange | ![Orange](tests/demo/orange.png)
-
-* yellow:
-![Yellow](tests/demo/yellow.png){width:30%}
-
-* green:
-![Green](tests/demo/green.png){width:30%}
-
-* cyan:
-![Cyan](tests/demo/cyan.png){width:30%}
-
-* blue:
-![Blue](tests/demo/blue.png){width:30%}
-
-* purple:
-![Purple](tests/demo/purple.png){width:30%}
-
-* pink:
-![White](tests/demo/pink.png){width:30%}
-
-* achromatic:
-![Achromatic](tests/demo/achro.png){width:30%}
+Original image| white | red | orange
+--- | --- | --- | ---
+![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg) | ![White](tests/demo/white.png)| ![Red](tests/demo/red.png) | ![Orange](tests/demo/orange.png)
+yellow | green | cyan | blue
+![Yellow](tests/demo/yellow.png)|![Green](tests/demo/green.png)|![Cyan](tests/demo/cyan.png)|![Blue](tests/demo/blue.png)
+purple  |pink | achromatic
+![Purple](tests/demo/purple.png)|![White](tests/demo/pink.png)|![Achromatic](tests/demo/achro.png)
 
 Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use a median filter and/or your own color definition set, with the same parameters (`median_filter` and `color_def_path`).
 
