@@ -31,8 +31,6 @@ def get_data(path):
     return BASE_PATH+'/color_definitions.json'
 
 
-#COLOR_DEF_PATH = Path("color_extraction/color_definitions.json")
-
 def load_color_definitions(path=BASE_PATH):
     """Given a path to a JSON file, load color definitions from this file.
 
@@ -45,7 +43,7 @@ def load_color_definitions(path=BASE_PATH):
 
     """
     # Open and read color definition file...
-    COLOR_DEF_PATH=get_data(BASE_PATH)
+    COLOR_DEF_PATH = get_data(BASE_PATH)
     try:
         with open(COLOR_DEF_PATH) as json_file:  
             color_definitions = json.load(json_file)
