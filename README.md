@@ -118,9 +118,9 @@ Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use your own
 ## Credits
 This module was partially funded by the the Swiss National Science Foundation (SNSF), grant N° CR11I1_156383.
 
-The current version (0.1a0) was implemented by Aris Xanthos based on the original code by Christelle Cocco available [here](color_extraction/fct_palette_man_RGB.py),
+The current version (0.1a0) was implemented by Aris Xanthos based on the original code by Christelle Cocco available [here](color_extraction/fct_palette_man_RGB.py).
 
-[@comhum2019]: http://ceur-ws.org/Vol-2314/paper1.pdf "Cocco, C., Ceré, R., Xanthos, A., Brandt, P.-Y. 2019 Identification and quantification of colours in children's drawings. 2314. Workshop on Computational Methods in the Humanities 2018. CEUR Workshop Proceedings"
+To cite: [Cocco, C., Ceré, R., Xanthos, A., Brandt, P.-Y. 2019. _Identification and quantification of colours in children's drawings_. Workshop on Computational Methods in the Humanities 2018. pp. 11-21. Vol. 2314. CEUR Workshop Proceedings](http://ceur-ws.org/Vol-2314/paper1.pdf)
 
 ## License
 
