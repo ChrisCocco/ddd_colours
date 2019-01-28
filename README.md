@@ -3,7 +3,7 @@
 
 Color-extraction is an open-source python module which attributes to each element of an ndarray (RGB image) the most similar color from a palette of predefined colors.
 
-Three functions are included, each of which takes an RGB ndarray as input and returns a dict whose keys are the names of each predefined colors:
+Three functions are included, each of which takes an RGB ndarray as input and returns a dict whose keys are the names of each predefined color:
 
 Function | Values of returned dict
 --- | ---
