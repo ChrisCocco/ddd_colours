@@ -12,7 +12,7 @@ setup(
     url="https://github.com/ChrisCocco/ddd_colours",
     author="Christelle Cocco, Raphael Cere, Aris Xanthos",
     author_email="christelle.cocco@unil.ch",
-    license="MIT",
+    license="GPLv3+",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
