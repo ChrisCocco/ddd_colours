@@ -32,34 +32,21 @@ from scipy.misc import imread
 img = imread(path_to_RGB_image)
 ```
 
-[comment]: <> (RC: Comme il y a la demo dams le package, peut-être qu'il faudrait simplement dire coment lancer cette demo ici et ensuite on peut donner des détails comme ici-desous.)
-[comment]: <> (AX: Personnellement je trouve bien comme ca.)
-
 ### Boolean arrays
 
 [comment]: <> (RC: Je ne suis convaincu que ce soit nécessaire de donner l'output de cet exemple comme on dit déjà dans l'intro que cette fonction une ndarray bool poour chque couleur. Ce qui retourne ce que l'on appelle un mask par couleur.)
 [comment]: <> (AX: l'exemple est parfaitement explicite, mais ça alourdit un peu la lecture en effet... Je trouverais plus utile de donner un exemple d'usage d'un tel masque. Quelque chose comme: "...returns a dictionary with a boolean ndarray for each color. Each such array has the same horizontal and vertical dimensions as the source image and can be thought of as a *mask* for the color in question." et on pourrait remplacer la partie de l'exemple qui affiche les arrays par un code qui les sauve, comme pour RGB plus bas, et afficher le résultat?)
 
-The function `get_bool_arrays` returns a dictionary with a boolean ndarray for
-each color.
+The function `get_bool_arrays` returns a dictionary with a boolean ndarray for each color. Each such array has the same horizontal and vertical dimensions as the source image and can be thought of as a *mask* for the color in question.
 
 ```
+>>> import matplotlib.image
+
 >>> dict_bool_arrays = color_extraction.get_bool_arrays(img)
 
->>> dict_bool_arrays
-{'white': array([[False, False, False, ...,  True,  True,  True],
-       [False, False, False, ...,  True,  True,  True],
-       [False, False, False, ...,  True,  True,  True],
-       ...,
-       [False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False]], dtype=bool), 'yellow': array([[False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False],
-       ...,
-       [False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False],
-       [False, False, False, ..., False, False, False]], dtype=bool), ...}
+>>> for color in dict_bool_arrays.keys():
+      matplotlib.image.imsave(output_path+color, dict_bool_arrays[color], cmap='gray')
+
 ```
 
 
@@ -89,41 +76,39 @@ for color in dict_rgb_arrays:
     matplotlib.image.imsave(output_path+color, dict_rgb_arrays[color])
 ```
 
-[comment]: <> (AX: peut-être réduire un peu la taille des images - originale ou affichée? les grands rectangles noirs successifs sont un peu encombrants...)  
-
 Using the following image as input:
-![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg)
+![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg){width:30%}
 this produces the following results:
 
 * white:
-![White](tests/demo/white.png)
+![White](tests/demo/white.png){width:30%}
 
 * red:
-![Red](tests/demo/red.png)
+![Red](tests/demo/red.png){width:30%}
 
 * orange:
-![Orange](tests/demo/orange.png)
+![Orange](tests/demo/orange.png){width:30%}
 
 * yellow:
-![Yellow](tests/demo/yellow.png)
+![Yellow](tests/demo/yellow.png){width:30%}
 
 * green:
-![Green](tests/demo/green.png)
+![Green](tests/demo/green.png){width:30%}
 
 * cyan:
-![Cyan](tests/demo/cyan.png)
+![Cyan](tests/demo/cyan.png){width:30%}
 
 * blue:
-![Blue](tests/demo/blue.png)
+![Blue](tests/demo/blue.png){width:30%}
 
 * purple:
-![Purple](tests/demo/purple.png)
+![Purple](tests/demo/purple.png){width:30%}
 
 * pink:
-![White](tests/demo/pink.png)
+![White](tests/demo/pink.png){width:30%}
 
 * achromatic:
-![Achromatic](tests/demo/achro.png)
+![Achromatic](tests/demo/achro.png){width:30%}
 
 Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use a median filter and/or your own color definition set, with the same parameters (`median_filter` and `color_def_path`).
 
