@@ -34,9 +34,6 @@ img = imread(path_to_RGB_image)
 
 ### Boolean arrays
 
-[comment]: <> (RC: Je ne suis convaincu que ce soit nécessaire de donner l'output de cet exemple comme on dit déjà dans l'intro que cette fonction une ndarray bool poour chque couleur. Ce qui retourne ce que l'on appelle un mask par couleur.)
-[comment]: <> (AX: l'exemple est parfaitement explicite, mais ça alourdit un peu la lecture en effet... Je trouverais plus utile de donner un exemple d'usage d'un tel masque. Quelque chose comme: "...returns a dictionary with a boolean ndarray for each color. Each such array has the same horizontal and vertical dimensions as the source image and can be thought of as a *mask* for the color in question." et on pourrait remplacer la partie de l'exemple qui affiche les arrays par un code qui les sauve, comme pour RGB plus bas, et afficher le résultat?)
-
 The function `get_bool_arrays` returns a dictionary with a boolean ndarray for each color. Each such array has the same horizontal and vertical dimensions as the source image and can be thought of as a *mask* for the color in question.
 
 ```
@@ -49,8 +46,14 @@ The function `get_bool_arrays` returns a dictionary with a boolean ndarray for e
 
 ```
 
+Original image| white | red | orange
+--- | --- | --- | ---
+![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg) | ![White](tests/demo/bool_white.png)| ![Red](tests/demo/bool_red.png) | ![Orange](tests/demo/bool_orange.png)
+yellow | green | cyan | blue
+![Yellow](tests/demo/bool_yellow.png)|![Green](tests/demo/bool_green.png)|![Cyan](tests/demo/bool_cyan.png)|![Blue](tests/demo/bool_blue.png)
+purple  |pink | achromatic
+![Purple](tests/demo/bool_purple.png)|![White](tests/demo/bool_pink.png)|![Achromatic](tests/demo/bool_achro.png)
 
-[comment]: <> (RC:  Ci-dessous ce sont les arguments de la fonction, peut-être reduire ceci à un paragraphe?)  
 It is also possible to use a median filter (3 x 3) in order to reduce the amount of pixels of a given color that are isolated in the array:
 
 ```
@@ -76,8 +79,9 @@ for color in dict_rgb_arrays:
     matplotlib.image.imsave(output_path+color, dict_rgb_arrays[color])
 ```
 
-Using the following image as input:
 
+
+Using the following image as input:
 
 Original image| white | red | orange
 --- | --- | --- | ---
@@ -116,7 +120,7 @@ This module was partially funded by the the Swiss National Science Foundation (S
 
 The current version (0.1a0) was implemented by Aris Xanthos based on the original code by Christelle Cocco available [here](color_extraction/fct_palette_man_RGB.py),
 
-To cite this module: en attendant comhum... ;)
+[@comhum2019]: http://ceur-ws.org/Vol-2314/paper1.pdf "Cocco, C., Ceré, R., Xanthos, A., Brandt, P.-Y. 2019 Identification and quantification of colours in children's drawings. 2314. Workshop on Computational Methods in the Humanities 2018. CEUR Workshop Proceedings"
 
 ## License
 

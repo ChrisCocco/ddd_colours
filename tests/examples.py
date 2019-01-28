@@ -27,5 +27,9 @@ dict_rgb_arrays = color_extraction.get_rgb_arrays(img)
 for color in dict_rgb_arrays.keys():
     matplotlib.image.imsave(output_path+color, dict_rgb_arrays[color])
 
+
+for color in dict_bool_arrays.keys():
+    matplotlib.image.imsave(output_path+"bool_"+color, dict_bool_arrays[color], cmap='gray')
+
 #
 dict_counts_arrays = color_extraction.get_counts(img)
