@@ -14,7 +14,7 @@ Function | Values of returned dict
 ## Installing
 
 ```
-pip install color_extraction
+>>> pip install color_extraction
 ```
 
 ## Usage examples
@@ -26,10 +26,12 @@ and white. This set of colors, which can be modified, is available at
 
 To get started:
 ```
-import color_extraction
-from scipy.misc import imread
+>>> import color_extraction
+>>> import matplotlib
+>>> import matplotlib.pyplot
 
-img = imread(path_to_RGB_image)
+>>> with matplotlib.cbook.get_sample_data('ada.png') as image_file:
+... img = matplotlib.pyplot.imread(image_file)
 ```
 
 ### Boolean arrays
@@ -37,33 +39,30 @@ img = imread(path_to_RGB_image)
 The function `get_bool_arrays` returns a dictionary with a boolean ndarray for each color. Each such array has the same horizontal and vertical dimensions as the source image and can be thought of as a *mask* for the color in question.
 
 ```
->>> import matplotlib.image
-
 >>> dict_bool_arrays = color_extraction.get_bool_arrays(img)
 
 >>> for color in dict_bool_arrays.keys():
-      matplotlib.image.imsave(output_path+color, dict_bool_arrays[color], cmap='gray')
-
+    matplotlib.image.imsave(output_path+color, dict_bool_arrays[color], cmap='gray')
 ```
 
 Original image| white | red | orange
 --- | --- | --- | ---
-![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg) | ![White](tests/demo/bool_white.png)| ![Red](tests/demo/bool_red.png) | ![Orange](tests/demo/bool_orange.png)
+![Original image](color_extraction/img/ada.png) | ![White](color_extraction/img/bool_white.png)| ![Red](color_extraction/img/bool_red.png) | ![Orange](color_extraction/img/bool_orange.png)
 yellow | green | cyan | blue
-![Yellow](tests/demo/bool_yellow.png)|![Green](tests/demo/bool_green.png)|![Cyan](tests/demo/bool_cyan.png)|![Blue](tests/demo/bool_blue.png)
+![Yellow](color_extraction/img/bool_yellow.png)|![Green](color_extraction/img/bool_green.png)|![Cyan](color_extraction/img/bool_cyan.png)|![Blue](color_extraction/img/bool_blue.png)
 purple  |pink | achromatic
-![Purple](tests/demo/bool_purple.png)|![White](tests/demo/bool_pink.png)|![Achromatic](tests/demo/bool_achro.png)
+![Purple](color_extraction/img/bool_purple.png)|![White](color_extraction/img/bool_pink.png)|![Achromatic](color_extraction/img/bool_achro.png)
 
 It is also possible to use a median filter (3 x 3) in order to reduce the amount of pixels of a given color that are isolated in the array:
 
 ```
-color_extraction.get_bool_arrays(img, median_filter=True)
+>>> color_extraction.get_bool_arrays(img, median_filter=True)
 ```
 
 It is also possible to use your own color definitions saved in a JSON file.
 
 ```
-color_extraction.get_bool_arrays(img, color_def_path=path_to_your_json_file)
+>>> color_extraction.get_bool_arrays(img, color_def_path=path_to_your_json_file)
 ```
 
 ### RGB arrays
@@ -71,12 +70,10 @@ color_extraction.get_bool_arrays(img, color_def_path=path_to_your_json_file)
 The function `get_rgb_arrays` returns a dictionary with a RGB array for each color. Each such array has the same horizontal and vertical dimensions as the source image. Positions where the color in question has been detected contain the original RGB color found in the source image; other positions have the value 0 (black), except in the case of the "achro(matic)" color, where they have the value 1 (white).
 
 ```
-import matplotlib.image
+>>> dict_rgb_arrays = color_extraction.get_rgb_arrays(img)
 
-dict_rgb_arrays = color_extraction.get_rgb_arrays(img)
-
-for color in dict_rgb_arrays:
-    matplotlib.image.imsave(output_path+color, dict_rgb_arrays[color])
+>>> for color in dict_rgb_arrays:
+... matplotlib.image.imsave(color, dict_rgb_arrays[color])
 ```
 
 
@@ -85,11 +82,11 @@ Using the following image as input:
 
 Original image| white | red | orange
 --- | --- | --- | ---
-![Original image](tests/demo/Comic_mural_Le_jeune_Albert_Yves_Chaland_Bruxelles.jpg) | ![White](tests/demo/white.png)| ![Red](tests/demo/red.png) | ![Orange](tests/demo/orange.png)
+![Original image](color_extraction/img/ada.png) | ![White](color_extraction/img/white.png)| ![Red](color_extraction/img/red.png) | ![Orange](color_extraction/img/orange.png)
 yellow | green | cyan | blue
-![Yellow](tests/demo/yellow.png)|![Green](tests/demo/green.png)|![Cyan](tests/demo/cyan.png)|![Blue](tests/demo/blue.png)
+![Yellow](color_extraction/img/yellow.png)|![Green](color_extraction/img/green.png)|![Cyan](color_extraction/img/cyan.png)|![Blue](color_extraction/img/blue.png)
 purple  |pink | achromatic
-![Purple](tests/demo/purple.png)|![White](tests/demo/pink.png)|![Achromatic](tests/demo/achro.png)
+![Purple](color_extraction/img/purple.png)|![White](color_extraction/img/pink.png)|![Achromatic](color_extraction/img/achro.png)
 
 Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use a median filter and/or your own color definition set, with the same parameters (`median_filter` and `color_def_path`).
 
