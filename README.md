@@ -3,13 +3,13 @@
 
 Color-extraction is an open-source python module which attributes to each element of an ndarray (RGB image) the most similar color from a palette of predefined colors.
 
-Three functions are included, each of which takes an RGB ndarray as input and returns a dict whose keys are the names of each predefined colors:
+Three functions are included, each of which takes an RGB ndarray as input and returns a dict whose keys are the names of each predefined color:
 
 Function | Values of returned dict
 --- | ---
-[`get_bool_arrays`](#boolean-array) | boolean ndarrays (1 per color)
+[`get_bool_arrays`](#boolean-arrays) | boolean ndarrays (1 per color)
 [`get_rgb_arrays`](#rgb-arrays) | RGB ndarrays (1 per color)
-[`get_counts`](#counts) | integer counts of pixels (1 per color)
+[`get_counts`](#pixel-counts) | integer counts of pixels (1 per color)
 
 ## Installing
 
@@ -88,7 +88,7 @@ yellow | green | cyan | blue
 purple  |pink | achromatic
 ![Purple](color_extraction/img/purple.png)|![White](color_extraction/img/pink.png)|![Achromatic](color_extraction/img/achro.png)
 
-Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use a median filter and/or your own color definition set, with the same parameters (`median_filter` and `color_def_path`).
+Similarly to [`get_bool_arrays`](#boolean-arrays), it is possible to use a median filter and/or your own color definition set, with the same parameters (`median_filter` and `color_def_path`).
 
 ### Pixel counts
 
@@ -98,7 +98,7 @@ The function `get_counts` returns a dictionary with the number of pixels of each
 >>> color_extraction.get_counts(img)
 {'purple': 25, 'blue': 6652, 'achro': 2477505, 'cyan': 764, 'white': 9567, 'green': 185, 'red': 114555, 'pink': 163, 'orange': 150263, 'yellow': 5121}
 ```
-Similarly to [`get_bool_arrays`](#boolean-array), it is possible to use your own color definition set, with the same parameter (`color_def_path`). The median filter is not available for this function.
+Similarly to [`get_bool_arrays`](#boolean-arrays), it is possible to use your own color definition set, with the same parameter (`color_def_path`). The median filter is not available for this function.
 
 ## Dependencies
 
