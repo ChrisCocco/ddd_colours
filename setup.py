@@ -1,14 +1,17 @@
 from setuptools import setup
 
-def readme():
-    with open('README.md') as f:
-        return f.read()
+# def readme():
+#     with open('README.md') as f:
+#         return f.read()
+
+with open('README.md') as f:
+    long_description = f.read()
         
 setup(
     name="color_extraction",
     version="0.1a2",
     description="A python package for decomposing an image into basic colours",
-    long_description=readme(),
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/ChrisCocco/ddd_colours",
     author="Christelle Cocco, Raphael Cere, Aris Xanthos",
