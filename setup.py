@@ -8,7 +8,7 @@ setup(
     name="color_extraction",
     version="0.1a1",
     description="A python package for decomposing an image into basic colours",
-    long_description="""# Markdown support!\n\n* Cheer\n* Celebrate\n""",
+    long_description=readme(),
     long_description_content_type='text/markdown',
     url="https://github.com/ChrisCocco/ddd_colours",
     author="Christelle Cocco, Raphael Cere, Aris Xanthos",
