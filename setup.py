@@ -9,7 +9,7 @@ with open('README.md') as f:
         
 setup(
     name="color_extraction",
-    version="0.1a2",
+    version="0.1a3",
     description="A python package for decomposing an image into basic colours",
     long_description=long_description,
     long_description_content_type='text/markdown',
