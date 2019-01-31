@@ -136,7 +136,7 @@ def get_rgb_arrays(image, median_filter=False, color_def_path=None):
     # Convert bool to rgb...
     rgb_arrays = dict()
     for color_name in bool_arrays:
-        rgb_arrays[color_name] = image.copy()
+        rgb_arrays[color_name] = image[:,:,:3].copy()
         bg_color = 255 if color_name == "achro" else 0
         rgb_arrays[color_name][np.invert(bool_arrays[color_name])] = bg_color
 
