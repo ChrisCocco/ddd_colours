@@ -42,7 +42,7 @@ The function `get_bool_arrays` returns a dictionary with a boolean ndarray for e
 >>> dict_bool_arrays = color_extraction.get_bool_arrays(img)
 
 >>> for color in dict_bool_arrays.keys():
-    matplotlib.image.imsave(output_path+color, dict_bool_arrays[color], cmap='gray')
+    matplotlib.image.imsave(output_path + color + ".png", dict_bool_arrays[color], cmap='gray')
 ```
 
 Original image| white | red | orange
