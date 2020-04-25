@@ -90,8 +90,9 @@ def get_bool_arrays(image, median_filter=False, color_def_path=None):
     w, h, d = image.shape
     assert d >= 3, "Image doesn't have 3 dimensions, please make sure it is RGB. By default, the 4th dimension is ignored if the format is RGBA,"
     image_array = np.reshape(image[:,:,:3], (w * h, 3))
-    assert max(image_array[:,1]) <= 1.0, "The RGB triplet value is not in 0-255 range, please make sure it is RGB. By default, the 0-1 range is rescaled to 0-255."
-    if max(image_array[:,1]) <= 1.0:
+    flatten_values = image_array[:,1]
+    assert 0.0 <= max(flatten_values) <= 255.0, "The RGB triplet value is not in 0-255 range, please make sure it is RGB. By default, the 0-1 range is rescaled to 0-255."
+    if max(flatten_values) <= 1.0:
         image_array = image_array*255
     labels, _ = vq(image_array, code_book)
     img_labels = np.empty((w * h), dtype=object)
