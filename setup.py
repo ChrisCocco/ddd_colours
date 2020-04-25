@@ -18,7 +18,7 @@ setup(
     author_email="christelle.cocco@unil.ch",
     license="GPLv3+",
     classifiers=[
-        "Development Status :: 4 - Alpha",
+        "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
         "Topic :: Scientific/Engineering",
