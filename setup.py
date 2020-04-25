@@ -9,7 +9,7 @@ with open('README.md') as f:
         
 setup(
     name="color_extraction",
-    version="0.1a3",
+    version="0.1a4",
     description="A python package for decomposing an image into basic colours",
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -18,7 +18,7 @@ setup(
     author_email="christelle.cocco@unil.ch",
     license="GPLv3+",
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Alpha",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
         "Topic :: Scientific/Engineering",
